@@ -5,12 +5,14 @@ import Db.DBConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Main {
-    public static void main(String[] args) throws SQLException {
+public class App {
+    
+	public static void main(String[] args) throws SQLException {
         try (Connection conn = DBConnection.getConnection()) {
-            System.out.println("Connected to database successfully!");
+            System.out.println("Connected to database successfully - Hello Tien Son!");
         } catch (SQLException e) {
             System.out.println("Failed to connect to database: " + e.getMessage());
         }
     }
+	
 }
