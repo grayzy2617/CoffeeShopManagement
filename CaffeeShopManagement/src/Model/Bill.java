@@ -1,15 +1,16 @@
 package Model;
 
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 public class Bill {
     private int id;
     private String phoneNumberCus;
     private double totalPrice;
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
     private int createdByEmployID;
 
-    public Bill(int id, String phoneNumberCus, double totalPrice, Timestamp createdAt, int createdByEmployID) {
+    public Bill(int id, String phoneNumberCus, double totalPrice, LocalDateTime createdAt, int createdByEmployID) {
         this.id = id;
         this.phoneNumberCus = phoneNumberCus;
         this.totalPrice = totalPrice;
@@ -20,6 +21,6 @@ public class Bill {
     public int getId() { return id; }
     public String getPhoneNumberCus() { return phoneNumberCus; }
     public double getTotalPrice() { return totalPrice; }
-    public Timestamp getCreatedAt() { return createdAt; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
     public int getCreatedByEmployID() { return createdByEmployID; }
 }
