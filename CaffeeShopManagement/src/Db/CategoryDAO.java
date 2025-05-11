@@ -25,8 +25,12 @@ public class CategoryDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                Integer catId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    catId = null;
+                }
                 return new Category(
-                        rs.getInt("id"),
+                        catId,
                         rs.getString("name")
                 );
             }
@@ -41,8 +45,12 @@ public class CategoryDAO {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                Integer catId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    catId = null;
+                }
                 categories.add(new Category(
-                        rs.getInt("id"),
+                        catId,
                         rs.getString("name")
                 ));
             }
@@ -55,7 +63,11 @@ public class CategoryDAO {
             String sql = "UPDATE category SET name = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, category.getName());
-            stmt.setInt(2, category.getId());
+            if (category.getId() == null) {
+                stmt.setNull(2, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(2, category.getId());
+            }
             stmt.executeUpdate();
         }
     }
@@ -77,8 +89,12 @@ public class CategoryDAO {
             stmt.setString(1, "%" + name + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                Integer catId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    catId = null;
+                }
                 categories.add(new Category(
-                        rs.getInt("id"),
+                        catId,
                         rs.getString("name")
                 ));
             }

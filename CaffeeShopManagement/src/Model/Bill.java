@@ -4,13 +4,13 @@ import java.security.Timestamp;
 import java.time.LocalDateTime;
 
 public class Bill {
-    private int id;
+    private Integer id;
     private String phoneNumberCus;
-    private double totalPrice;
+    private Double totalPrice;
     private LocalDateTime createdAt;
-    private int createdByEmployID;
+    private Integer createdByEmployID;
 
-    public Bill(int id, String phoneNumberCus, double totalPrice, LocalDateTime createdAt, int createdByEmployID) {
+    public Bill(Integer id, String phoneNumberCus, Double totalPrice, LocalDateTime createdAt, Integer createdByEmployID) {
         this.id = id;
         this.phoneNumberCus = phoneNumberCus;
         this.totalPrice = totalPrice;
@@ -18,9 +18,9 @@ public class Bill {
         this.createdByEmployID = createdByEmployID;
     }
 
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getPhoneNumberCus() { return phoneNumberCus; }
-    public double getTotalPrice() { return totalPrice; }
+    public Double getTotalPrice() { return totalPrice; }
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public int getCreatedByEmployID() { return createdByEmployID; }
+    public Integer getCreatedByEmployID() { return createdByEmployID; }
 }
