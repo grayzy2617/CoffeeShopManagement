@@ -10,31 +10,32 @@ import java.util.List;
 import Db.ProductDAO;
 
 public class ProductController {
+	private ProductDAO productDAO;
+	public ProductController() {
+		productDAO = new ProductDAO();
+	}
+	//get a product by id
 	public Product getProduct(int id) {
-		ProductDAO productDAO = new ProductDAO();
 		Product product = null;
 		try {
 			product = productDAO.getProductById(id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return product;
 	}
-	
+	//get products 
 	public List<Product> getProducts() {
-		ProductDAO productDAO = new ProductDAO();
 		List<Product> productList = new ArrayList<Product>();
 		try {
 			productList = productDAO.getAllProducts();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return productList != null ? productList : Collections.emptyList();
 	}
-	
-	public Boolean createProduct(Product product) {
+	//create a product
+	public boolean createProduct(Product product) {
 	    if (product.getName() == null || product.getName().isEmpty()) {
 	        return false;
 	    }
@@ -57,8 +58,8 @@ public class ProductController {
 	        return false; 
 	    }
 	}
-	
-	public Boolean updateProduct(Product product) {
+	//update the product information
+	public boolean updateProduct(Product product) {
 		if(product.getId() == null) {
 			return false;
 		}	
@@ -80,13 +81,12 @@ public class ProductController {
 			productDAO.updateProduct(product);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	public Boolean deleteProduct(Integer id) {
+	//delete a product
+	public boolean deleteProduct(Integer id) {
 		if(id == null) {
 			return false;
 		}
@@ -95,12 +95,11 @@ public class ProductController {
 			productDAO.deleteProduct(id);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
+	//get products by category_id
 	public List<Product> getProductByCategory(Integer categoryId) {
 		if(categoryId == null)
 			return Collections.emptyList();
@@ -109,12 +108,11 @@ public class ProductController {
 			List<Product> productList = productDAO.searchProductsByCategory(categoryId);
 			return productList != null ? productList : Collections.emptyList();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
 	}
-	
+	//search products (search following name)
 	public List<Product> searchProduct(String keyword) {
 		ProductDAO productDAO = new ProductDAO();
 		List<Product> productList = new ArrayList<Product>();
@@ -123,7 +121,6 @@ public class ProductController {
 				productList = productDAO.getAllProducts();
 				return productList != null ? productList : Collections.emptyList();
 			} catch (Exception e) {
-				// TODO: handle exception
 				e.printStackTrace();
 				return Collections.emptyList();
 			}
@@ -134,12 +131,9 @@ public class ProductController {
 			productList = productDAO.searchProductsByName(keyword);
 			return productList != null ? productList : Collections.emptyList();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
 		
 	}
-
-
 }

@@ -27,7 +27,7 @@ public class UserController {
 	
 	public List<User> getUsers() {
 		try {
-			List<User> userList = userDAO.getAllUser();
+			List<User> userList = userDAO.getAllUsers();
 			return userList != null ? userList : Collections.emptyList();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -44,10 +44,11 @@ public class UserController {
 		if(user.getSalary() == null || user.getSalary() <= 0) return false;
 		
 		try {
+			User u = userDAO.getUserByUsername(user.getUsername());
+			if(u != null) return false;
 			userDAO.addUser(user);
 			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}	
@@ -88,7 +89,7 @@ public class UserController {
 		List<User> userList = new ArrayList<User>();
 		if(keyword == null || keyword.isEmpty()) {
 			try {
-				userList = userDAO.getAllUser();
+				userList = userDAO.getAllUsers();
 				return userList != null ? userList : Collections.emptyList();
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -98,7 +99,7 @@ public class UserController {
 		}
 		
 		try {
-			userList = userDAO.searchUserByName(keyword);
+			userList = userDAO.searchUsersByName(keyword);
 			return userList != null ? userList : Collections.emptyList();
 		} catch (Exception e) {
 			// TODO: handle exception

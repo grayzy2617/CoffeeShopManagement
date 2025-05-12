@@ -30,6 +30,38 @@ public class UserDAO {
             stmt.executeUpdate();
         }
     }
+    
+    public User getUserByUsername(String username) throws SQLException {
+    	try(Connection conn = DBConnection.getConnection()) {
+    		String sql = "SELECT * FROM user WHERE username = ?";
+    		PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Integer userId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    userId = null;
+                }
+                Integer roleId = rs.getInt("role_id");
+                if (rs.wasNull()) {
+                    roleId = null;
+                }
+                Double salary = rs.getDouble("salary");
+                if (rs.wasNull()) {
+                    salary = null;
+                }
+                return new User(
+                        userId,
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        roleId,
+                        rs.getString("name"),
+                        salary
+                );
+            }
+            return null;
+    	}
+    }
 
     public User getUserById(int id) throws SQLException {
         try (Connection conn = DBConnection.getConnection()) {
@@ -130,11 +162,7 @@ public class UserDAO {
         }
     }
 
-<<<<<<< HEAD
-    public List<User> searchUserByName(String name) throws SQLException {
-=======
     public List<User> searchUsersByName(String name) throws SQLException {
->>>>>>> db9c7f13d8da1c00b49fa02111f90d64f85bd036
         List<User> users = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection()) {
             String sql = "SELECT * FROM user WHERE name LIKE ?";
