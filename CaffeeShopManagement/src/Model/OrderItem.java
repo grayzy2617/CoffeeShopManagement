@@ -1,13 +1,13 @@
 package Model;
 
 public class OrderItem {
-    private int id;
-    private int invoiceId;
-    private int productId;
-    private int quantity;
-    private double price;
+    private Integer id;
+    private Integer invoiceId;
+    private Integer productId;
+    private Integer quantity;
+    private Double price;
 
-    public OrderItem(int id, int invoiceId, int productId, int quantity, double price) {
+    public OrderItem(Integer id, Integer invoiceId, Integer productId, Integer quantity, Double price) {
         this.id = id;
         this.invoiceId = invoiceId;
         this.productId = productId;
@@ -15,11 +15,11 @@ public class OrderItem {
         this.price = price;
     }
 
-    public int getId() { return id; }
-    public int getInvoiceId() { return invoiceId; }
-    public int getProductId() { return productId; }
-    public int getQuantity() { return quantity; }
-    public double getPrice() { return price; }
+    public Integer getId() { return id; }
+    public Integer getInvoiceId() { return invoiceId; }
+    public Integer getProductId() { return productId; }
+    public Integer getQuantity() { return quantity; }
+    public Double getPrice() { return price; }
 
-    public void setInvoiceId(int invoiceId) { this.invoiceId = invoiceId; }
+    public void setInvoiceId(Integer invoiceId) { this.invoiceId = invoiceId; }
 }

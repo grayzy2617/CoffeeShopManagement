@@ -10,65 +10,113 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public User getUserById(int id) throws SQLException {
-        try (Connection conn =DBConnection.getConnection()){
-            String sql = "Select * from user Where id= ?";
+    public void addUser(User user) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "INSERT INTO user (username, password, role_id, name, salary) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1,id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new User(rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("role_id"),
-                        rs.getString("name"),
-                        rs.getDouble("salary"));
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            if (user.getRoleId() == null) {
+                stmt.setNull(3, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(3, user.getRoleId());
             }
+            stmt.setString(4, user.getName());
+            if (user.getSalary() == null) {
+                stmt.setNull(5, java.sql.Types.DOUBLE);
+            } else {
+                stmt.setDouble(5, user.getSalary());
+            }
+            stmt.executeUpdate();
         }
-        return null;
     }
 
-    public List<User> getAllUser() throws SQLException {
+    public User getUserById(int id) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM user WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Integer userId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    userId = null;
+                }
+                Integer roleId = rs.getInt("role_id");
+                if (rs.wasNull()) {
+                    roleId = null;
+                }
+                Double salary = rs.getDouble("salary");
+                if (rs.wasNull()) {
+                    salary = null;
+                }
+                return new User(
+                        userId,
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        roleId,
+                        rs.getString("name"),
+                        salary
+                );
+            }
+            return null;
+        }
+    }
+
+    public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection()){
-            String sql ="Select * from user";
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM user";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                users.add(new User(rs.getInt("id"),
+                Integer userId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    userId = null;
+                }
+                Integer roleId = rs.getInt("role_id");
+                if (rs.wasNull()) {
+                    roleId = null;
+                }
+                Double salary = rs.getDouble("salary");
+                if (rs.wasNull()) {
+                    salary = null;
+                }
+                users.add(new User(
+                        userId,
                         rs.getString("username"),
                         rs.getString("password"),
-                        rs.getInt("role_id"),
+                        roleId,
                         rs.getString("name"),
-                        rs.getDouble("salary"))
-                );
+                        salary
+                ));
             }
         }
         return users;
     }
 
-    public void updateUser ( User user) throws SQLException {
-        try (Connection conn= DBConnection.getConnection()){
-            String sql = "update user Set name =?, password =?, role_id =?, salary =?";
+    public void updateUser(User user) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "UPDATE user SET username = ?, password = ?, role_id = ?, name = ?, salary = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,user.getName());
+            stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
-            stmt.setInt(3,user.getRoleId());
-            stmt.setDouble(4,user.getSalary());
-            stmt.executeUpdate();
-        }
-    }
-
-    public void addUser (User user) throws SQLException {
-        try (Connection conn = DBConnection.getConnection()){
-            String sql = "Insert into user (username, password, role_id, name, salary) Values" +
-                    "(?,?,?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,user.getUsername());
-            stmt.setString(2,user.getPassword());
-            stmt.setInt(3,user.getRoleId());
-            stmt.setString(4,user.getName());
-            stmt.setDouble(5,user.getSalary());
+            if (user.getRoleId() == null) {
+                stmt.setNull(3, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(3, user.getRoleId());
+            }
+            stmt.setString(4, user.getName());
+            if (user.getSalary() == null) {
+                stmt.setNull(5, java.sql.Types.DOUBLE);
+            } else {
+                stmt.setDouble(5, user.getSalary());
+            }
+            if (user.getId() == null) {
+                stmt.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(6, user.getId());
+            }
             stmt.executeUpdate();
         }
     }
@@ -82,21 +130,38 @@ public class UserDAO {
         }
     }
 
+<<<<<<< HEAD
     public List<User> searchUserByName(String name) throws SQLException {
+=======
+    public List<User> searchUsersByName(String name) throws SQLException {
+>>>>>>> db9c7f13d8da1c00b49fa02111f90d64f85bd036
         List<User> users = new ArrayList<>();
-        try ( Connection conn = DBConnection.getConnection()){
-            String sql = "SELECT * from user WHERE name LIKE ?";
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM user WHERE name LIKE ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1,"%" + name +"%");
+            stmt.setString(1, "%" + name + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                users.add(new User(rs.getInt("id"),
+                Integer userId = rs.getInt("id");
+                if (rs.wasNull()) {
+                    userId = null;
+                }
+                Integer roleId = rs.getInt("role_id");
+                if (rs.wasNull()) {
+                    roleId = null;
+                }
+                Double salary = rs.getDouble("salary");
+                if (rs.wasNull()) {
+                    salary = null;
+                }
+                users.add(new User(
+                        userId,
                         rs.getString("username"),
                         rs.getString("password"),
-                        rs.getInt("role_id"),
+                        roleId,
                         rs.getString("name"),
-                        rs.getDouble("salary"))
-                );
+                        salary
+                ));
             }
         }
         return users;
