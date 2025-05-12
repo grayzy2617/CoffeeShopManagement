@@ -1,9 +1,13 @@
 package Main;
 
 import Db.DBConnection;
+import Model.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+
+import Controller.ProductController;
 
 public class App {
     public static void main(String[] args) throws SQLException {
@@ -12,5 +16,13 @@ public class App {
         } catch (SQLException e) {
             System.out.println("Failed to connect to database: " + e.getMessage());
         }
+        
+        ProductController productController = new ProductController();
+        List<Product> result = productController.getProducts();
+        for (Product product : result) {
+			System.out.println(product.getName() + "  "+ product.getPrice());
+			System.out.println("------------------");
+		}
     }
+    
 }

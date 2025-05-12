@@ -1,14 +1,14 @@
 package Model;
 
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
-    private int roleId;
+    private Integer roleId;
     private String name;
-    private double salary;
+    private Double salary;
 
-    public User(int id, String username, String password, int roleId, String name, double salary) {
+    public User(Integer id, String username, String password, Integer roleId, String name, Double salary) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -17,10 +17,10 @@ public class User {
         this.salary = salary;
     }
 
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
-    public int getRoleId() { return roleId; }
+    public Integer getRoleId() { return roleId; }
     public String getName() { return name; }
-    public double getSalary() { return salary; }
+    public Double getSalary() { return salary; }
 }

@@ -82,7 +82,7 @@ public class UserDAO {
         }
     }
 
-    public List<User> searchUserByName ( String name) throws SQLException {
+    public List<User> searchUserByName(String name) throws SQLException {
         List<User> users = new ArrayList<>();
         try ( Connection conn = DBConnection.getConnection()){
             String sql = "SELECT * from user WHERE name LIKE ?";
