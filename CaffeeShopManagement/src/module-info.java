@@ -5,7 +5,9 @@
  * 
  */
 module CaffeeShopManagement {
-    requires jdk.compiler;
-    requires java.sql;
-    exports Main;
+	requires java.desktop;
+	requires jdk.compiler;
+	requires java.sql;
+
+	exports Main;
 }

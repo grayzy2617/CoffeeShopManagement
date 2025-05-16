@@ -1,20 +1,21 @@
 package Controller;
 
-import Model.Product;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import Db.ProductDAO;
+import Model.Product;
 
 public class ProductController {
 	private ProductDAO productDAO;
+
 	public ProductController() {
 		productDAO = new ProductDAO();
 	}
-	//get a product by id
+
+	// get a product by id
 	public Product getProduct(int id) {
 		Product product = null;
 		try {
@@ -24,7 +25,8 @@ public class ProductController {
 		}
 		return product;
 	}
-	//get products 
+
+	// get products
 	public List<Product> getProducts() {
 		List<Product> productList = new ArrayList<Product>();
 		try {
@@ -34,49 +36,51 @@ public class ProductController {
 		}
 		return productList != null ? productList : Collections.emptyList();
 	}
-	//create a product
-	public boolean createProduct(Product product) {
-	    if (product.getName() == null || product.getName().isEmpty()) {
-	        return false;
-	    }
-	    if (product.getPrice() == null || product.getPrice() <= 0) {
-	        return false;
-	    }
-	    if (product.getCategoryId() == null || product.getCategoryId() <= 0) {
-	        return false;
-	    }
-	    if (product.getUnit() == null || product.getUnit().isEmpty()) {
-	        return false;
-	    }
 
-	    ProductDAO productDAO = new ProductDAO();
-	    try {
-	        productDAO.addProduct(product);
-	        return true;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return false; 
-	    }
-	}
-	//update the product information
-	public boolean updateProduct(Product product) {
-		if(product.getId() == null) {
-			return false;
-		}	
+	// create a product
+	public boolean createProduct(Product product) {
 		if (product.getName() == null || product.getName().isEmpty()) {
-	        return false;
-	    }
-	    if (product.getPrice() == null || product.getPrice() <= 0) {
-	        return false;
-	    }
-	    if (product.getCategoryId() == null || product.getCategoryId() <= 0) {
-	        return false;
-	    }
-	    if (product.getUnit() == null || product.getUnit().isEmpty()) {
-	        return false;
-	    }
-		
-	    ProductDAO productDAO = new ProductDAO();   
+			return false;
+		}
+		if (product.getPrice() == null || product.getPrice() <= 0) {
+			return false;
+		}
+		if (product.getCategoryId() == null || product.getCategoryId() <= 0) {
+			return false;
+		}
+		if (product.getUnit() == null || product.getUnit().isEmpty()) {
+			return false;
+		}
+
+		ProductDAO productDAO = new ProductDAO();
+		try {
+			productDAO.addProduct(product);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// update the product information
+	public boolean updateProduct(Product product) {
+		if (product.getId() == null) {
+			return false;
+		}
+		if (product.getName() == null || product.getName().isEmpty()) {
+			return false;
+		}
+		if (product.getPrice() == null || product.getPrice() <= 0) {
+			return false;
+		}
+		if (product.getCategoryId() == null || product.getCategoryId() <= 0) {
+			return false;
+		}
+		if (product.getUnit() == null || product.getUnit().isEmpty()) {
+			return false;
+		}
+
+		ProductDAO productDAO = new ProductDAO();
 		try {
 			productDAO.updateProduct(product);
 			return true;
@@ -85,9 +89,10 @@ public class ProductController {
 			return false;
 		}
 	}
-	//delete a product
+
+	// delete a product
 	public boolean deleteProduct(Integer id) {
-		if(id == null) {
+		if (id == null) {
 			return false;
 		}
 		ProductDAO productDAO = new ProductDAO();
@@ -99,9 +104,10 @@ public class ProductController {
 			return false;
 		}
 	}
-	//get products by category_id
+
+	// get products by category_id
 	public List<Product> getProductByCategory(Integer categoryId) {
-		if(categoryId == null)
+		if (categoryId == null)
 			return Collections.emptyList();
 		ProductDAO productDAO = new ProductDAO();
 		try {
@@ -112,11 +118,12 @@ public class ProductController {
 			return Collections.emptyList();
 		}
 	}
-	//search products (search following name)
+
+	// search products (search following name)
 	public List<Product> searchProduct(String keyword) {
 		ProductDAO productDAO = new ProductDAO();
 		List<Product> productList = new ArrayList<Product>();
-		if(keyword == null || keyword.isEmpty()) {			
+		if (keyword == null || keyword.isEmpty()) {
 			try {
 				productList = productDAO.getAllProducts();
 				return productList != null ? productList : Collections.emptyList();
@@ -124,9 +131,9 @@ public class ProductController {
 				e.printStackTrace();
 				return Collections.emptyList();
 			}
-			
+
 		}
-		
+
 		try {
 			productList = productDAO.searchProductsByName(keyword);
 			return productList != null ? productList : Collections.emptyList();
@@ -134,6 +141,6 @@ public class ProductController {
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
-		
+
 	}
 }
