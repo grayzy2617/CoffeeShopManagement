@@ -71,10 +71,12 @@ public class addAndEditProduct extends JFrame {
 		lblNewLabel_5.setBounds(10, 280, 96, 24);
 		contentPane.add(lblNewLabel_5);
 
-		txtID = new JTextField();
+		txtID = new JTextField("No input required");
 		txtID.setBounds(100, 98, 160, 32);
+		txtID.setEditable(false);
 		contentPane.add(txtID);
 		txtID.setColumns(10);
+
 
 		txtName = new JTextField();
 		txtName.setColumns(10);

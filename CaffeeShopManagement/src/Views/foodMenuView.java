@@ -143,7 +143,7 @@ public class foodMenuView extends JFrame {
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new mainEmployeeView(1).setVisible(true);
+				new mainAdminView().setVisible(true);
 				dispose();
 			}
 		});

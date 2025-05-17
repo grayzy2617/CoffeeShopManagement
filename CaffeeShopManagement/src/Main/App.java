@@ -21,6 +21,8 @@ public class App {
 			System.out.println(product.getName() + "  " + product.getPrice());
 			System.out.println("------------------");
 		}
+		
+		
 	}
 
 }

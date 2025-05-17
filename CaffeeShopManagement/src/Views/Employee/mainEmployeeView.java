@@ -113,16 +113,17 @@ public class mainEmployeeView extends JFrame {
 			orderView.setVisible(true);
 
 			// Ẩn Home nếu muốn, hoặc giữ Home mở:
-//			this.setVisible(false);
+			this.setVisible(false);
 		});
 		btnMenu.addActionListener(e -> {
 			viewMenuEmploy menuView = new viewMenuEmploy(userID);
 			menuView.setVisible(true);
 			this.setVisible(false);
 		});
-
-
-
+		
+		btnExit.addActionListener(e -> {
+		    System.exit(0); // Thoát ứng dụng
+		});
 	}
 
 

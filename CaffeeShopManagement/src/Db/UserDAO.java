@@ -33,7 +33,7 @@ public class UserDAO {
     
     public User getUserByUsername(String username) throws SQLException {
     	try(Connection conn = DBConnection.getConnection()) {
-    		String sql = "SELECT * FROM user WHERE username = ?";
+    		String sql = "SELECT * FROM user WHERE username = ? AND status = 'active'";
     		PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -98,7 +98,7 @@ public class UserDAO {
     public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "SELECT * FROM user";
+            String sql = "SELECT * FROM user WHERE status = 'active'";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -155,7 +155,7 @@ public class UserDAO {
 
     public void deleteUser(int id) throws SQLException {
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "DELETE FROM user WHERE id = ?";
+            String sql = "UPDATE user SET status = 'inactive' WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();

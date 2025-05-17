@@ -55,6 +55,8 @@ public class addAndEditEmployee extends JFrame {
 		txtPassword = new JPasswordField(20);
 		txtFullName = new JTextField(20);
 		txtID = new JTextField(20);
+		txtID.setEditable(false);
+		txtID.setToolTipText("This field is read-only");
 		cbbRole = new JComboBox<>(new String[] { "Quản lý", "Nhân viên" });
 
 		JButton btnSave = new JButton("Lưu");
@@ -149,7 +151,12 @@ public class addAndEditEmployee extends JFrame {
 	}
 
 	private void handleSave() {
-		int id = Integer.parseInt(txtID.getText());
+		String input = txtID.getText().trim();
+		int id = 0;
+		if (!input.isEmpty()) {
+		    id = Integer.parseInt(input);
+		}
+//		int id = Integer.parseInt(txtID.getText());
 		String username = txtUsername.getText().trim();
 		String password = new String(txtPassword.getPassword());
 		String fullName = txtFullName.getText().trim();
