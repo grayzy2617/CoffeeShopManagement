@@ -1,6 +1,8 @@
 package Db;
 
 import Model.Bill;
+import Model.OrderItem;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -205,5 +207,26 @@ public class BillDAO {
             }
         }
         return bills;
+    }
+    public List<OrderItem> getBillDetails(int billId) throws SQLException {
+        List<OrderItem> details = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT * FROM bill_detail WHERE invoice_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, billId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                OrderItem detail = new OrderItem(1,rs.getInt("invoice_id"),
+                        rs.getInt("product_id"),
+                        rs.getInt("quantity"),
+                        rs.getDouble("price"));
+                details.add(detail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return details;
     }
 }

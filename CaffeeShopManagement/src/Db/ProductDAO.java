@@ -1,10 +1,8 @@
 package Db;
 
 import Model.Product;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,4 +186,38 @@ public class ProductDAO {
         }
         return products;
     }
-}
+    public List<Object[]> getAllWithSoldCount() {
+        List<Object[]> list = new ArrayList<>();
+        try {
+            Connection conn = DBConnection.getConnection();
+
+            String sql = "SELECT p.id, p.name, p.price, p.unit, c.name AS category, " +
+                    "IFNULL(SUM(oi.quantity), 0) AS total_sold " +
+                    "FROM Product p " +
+                    "JOIN Category c ON p.category_id = c.id " +
+                    "LEFT JOIN OrderItem oi ON p.id = oi.product_id " +
+                    "GROUP BY p.id, p.name, p.price, p.unit, c.name " +
+                    "ORDER BY total_sold DESC";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                list.add(new Object[]{
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("unit"),
+                        rs.getString("category"),
+                        rs.getInt("total_sold")
+                });
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    }

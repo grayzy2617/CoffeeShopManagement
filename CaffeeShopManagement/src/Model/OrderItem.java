@@ -22,4 +22,7 @@ public class OrderItem {
     public Double getPrice() { return price; }
 
     public void setInvoiceId(Integer invoiceId) { this.invoiceId = invoiceId; }
+    public void setproductId(Integer productId) { this.productId = productId; }
+    public void setquantity(Integer quantity) { this.quantity = quantity; }
+    public void setprice(Double price) { this.price = price; }
 }

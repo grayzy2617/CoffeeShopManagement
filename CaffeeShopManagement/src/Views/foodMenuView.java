@@ -20,6 +20,7 @@ import Controller.CategoryController;
 import Controller.ProductController;
 import Model.Category;
 import Model.Product;
+import Views.Employee.mainEmployeeView;
 
 public class foodMenuView extends JFrame {
 
@@ -142,7 +143,7 @@ public class foodMenuView extends JFrame {
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new mainEmployeeView().setVisible(true);
+				new mainEmployeeView(1).setVisible(true);
 				dispose();
 			}
 		});

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import Controller.LoginController;
 import Db.UserDAO;
 import Model.User;
+import Views.Employee.mainEmployeeView;
 
 public class loginView extends JFrame {
 
@@ -96,7 +97,9 @@ public class loginView extends JFrame {
 					if (user.getRoleId() == 1)
 						new mainAdminView().setVisible(true);
 					else if (user.getRoleId() == 2) {
-						new mainEmployeeView().setVisible(true);
+						int userId=user.getId();
+						new mainEmployeeView(userId).setVisible(true);
+
 					}
 					dispose(); // đóng cửa sổ login
 				} else {

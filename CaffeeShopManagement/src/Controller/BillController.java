@@ -11,7 +11,6 @@ import Db.ProductDAO;
 import Model.Bill;
 import Model.OrderItem;
 import Model.Product;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -20,6 +19,7 @@ public class BillController {
     private BillDAO billDAO;
     private OrderItemDAO orderItemDAO;
     private ProductDAO productDAO;
+
 
     public BillController() {
         billDAO = new BillDAO();

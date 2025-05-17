@@ -23,4 +23,24 @@ public class Bill {
     public Double getTotalPrice() { return totalPrice; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public Integer getCreatedByEmployID() { return createdByEmployID; }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPhoneNumberCus(String phoneNumberCus) {
+        this.phoneNumberCus = phoneNumberCus;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setCreatedByEmployID(int createdByEmployID) {
+        this.createdByEmployID = createdByEmployID;
+    }
 }
